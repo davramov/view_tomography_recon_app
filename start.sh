@@ -21,7 +21,7 @@ export TILED_ALLOW_ORIGINS="http://localhost:3000 http://localhost:${REACT_PORT}
 
 # Start Tiled server in the background (bind to all interfaces)
 echo "Starting Tiled server with data from ${DATA_DIR} on port ${TILED_PORT}..."
-tiled serve directory "${DATA_DIR}" --public --watch True --verbose --host 0.0.0.0 --port ${TILED_PORT} &
+tiled serve directory "${DATA_DIR}" --public --watch --verbose --host 0.0.0.0 --port ${TILED_PORT} &
 TILED_PID=$!
 
 # Wait for Tiled to start
@@ -41,7 +41,7 @@ sleep 5
 
 # Start the React app
 echo "Starting React app on port ${REACT_PORT}..."
-cd /app/splash_flows_globus/orchestration/flows/bl832/view_recon_app
+cd /app/view_tomography_recon_app
 npm run dev -- --host 0.0.0.0 --port ${REACT_PORT} &
 REACT_PID=$!
 
@@ -68,7 +68,7 @@ echo "Press Ctrl+C to stop all services."
 while true; do
   if ! ps -p $TILED_PID > /dev/null; then
     echo "Tiled server has stopped unexpectedly. Restarting..."
-    tiled serve directory "${DATA_DIR}" --public --verbose --host 0.0.0.0 --port ${TILED_PORT} &
+    tiled serve directory "${DATA_DIR}" --public --verbose --watch --host 0.0.0.0 --port ${TILED_PORT} &
     TILED_PID=$!
   fi
   
@@ -80,7 +80,7 @@ while true; do
   
   if ! ps -p $REACT_PID > /dev/null; then
     echo "React app has stopped unexpectedly. Restarting..."
-    cd /app/splash_flows_globus/orchestration/flows/bl832/view_recon_app
+    cd /app/view_tomography_recon_app
     npm run dev -- --host 0.0.0.0 --port ${REACT_PORT} &
     REACT_PID=$!
   fi

@@ -48,14 +48,14 @@ RUN pip install zarr==2.18.3
 
 # Clone the React app
 WORKDIR /app
-RUN git clone https://github.com/davramov/splash_flows_globus.git -b issue_47 && \
-    cd splash_flows_globus/orchestration/flows/bl832/view_recon_app && \
+RUN git clone https://github.com/davramov/view_tomography_recon_app.git && \
+    cd view_tomography_recon_app && \
     npm install bluesky-web && \
     npm install && \
     npm link itk-vtk-viewer
 
 # Create the fix script with correct extension
-WORKDIR /app/splash_flows_globus/orchestration/flows/bl832/view_recon_app
+WORKDIR /app/view_tomography_recon_app
 RUN echo '#!/usr/bin/env node\n\
 const fs = require("fs");\n\
 const path = require("path");\n\
