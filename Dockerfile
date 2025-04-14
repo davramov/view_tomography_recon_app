@@ -48,7 +48,7 @@ RUN pip install zarr==2.18.3
 
 # Clone the React app
 WORKDIR /app
-RUN git clone https://github.com/davramov/view_tomography_recon_app.git && \
+RUN git clone https://github.com/als-computing/view_tomography_recon_app.git && \
     cd view_tomography_recon_app && \
     npm install bluesky-web && \
     npm install && \
